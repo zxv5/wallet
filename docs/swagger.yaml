@@ -1,0 +1,230 @@
+basePath: /api/v1
+definitions:
+  types.BalanceOutput:
+    properties:
+      balance:
+        type: number
+      user_id:
+        type: integer
+    type: object
+  types.DepositReq:
+    properties:
+      amount:
+        description: Amount to deposit
+        type: number
+    type: object
+  types.RecordOutput:
+    properties:
+      amount:
+        description: amount
+        type: number
+      created_at:
+        description: Creation time
+        type: string
+      describe:
+        description: description
+        type: string
+      id:
+        description: wallet record id
+        type: integer
+      transaction_type:
+        description: transaction type 0=unknown 1=income 2=expend
+        type: integer
+    type: object
+  types.TransferReq:
+    properties:
+      amount:
+        description: Amount to transfer
+        type: number
+      target_user_id:
+        description: Transfer target user ID
+        type: integer
+    type: object
+  types.UserInfo:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      gender:
+        type: integer
+      id:
+        type: integer
+      last_name:
+        type: string
+      status:
+        type: integer
+    type: object
+  types.UserLoginOutput:
+    properties:
+      info:
+        $ref: '#/definitions/types.UserInfo'
+      token:
+        type: string
+    type: object
+  types.UserLoginReq:
+    properties:
+      email:
+        description: login email
+        type: string
+      password:
+        description: login password
+        type: string
+    type: object
+  types.WithdrawReq:
+    properties:
+      amount:
+        description: Amount to withdraw
+        type: number
+    type: object
+host: 127.0.0.1:3000
+info:
+  contact: {}
+  description: wallet
+  title: wallet
+  version: 1.0.0
+paths:
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: User Login
+      parameters:
+      - description: parameter
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/types.UserLoginReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.UserLoginOutput'
+      security:
+      - ApiKeyAuth: []
+      summary: User Login
+      tags:
+      - User
+  /wallet/balance:
+    get:
+      consumes:
+      - application/json
+      description: Get the user's balance
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.BalanceOutput'
+      security:
+      - ApiKeyAuth: []
+      summary: Get the user's balance
+      tags:
+      - Wallet
+  /wallet/deposit:
+    post:
+      consumes:
+      - application/json
+      description: User deposits
+      parameters:
+      - description: parameter
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/types.DepositReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: User deposits
+      tags:
+      - Wallet
+  /wallet/record:
+    get:
+      consumes:
+      - application/json
+      description: Get user transaction records
+      parameters:
+      - description: page
+        in: query
+        name: page
+        type: integer
+      - description: size
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/types.RecordOutput'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get user transaction records
+      tags:
+      - Wallet
+  /wallet/transfer:
+    post:
+      consumes:
+      - application/json
+      description: User Transfer
+      parameters:
+      - description: parameter
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/types.TransferReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: User Transfer
+      tags:
+      - Wallet
+  /wallet/withdraw:
+    post:
+      consumes:
+      - application/json
+      description: User withdraw
+      parameters:
+      - description: parameter
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/types.WithdrawReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: User withdraw
+      tags:
+      - Wallet
+securityDefinitions:
+  ApiKeyAuth:
+    description: Please enter your Bearer token
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

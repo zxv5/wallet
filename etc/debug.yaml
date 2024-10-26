@@ -1,0 +1,23 @@
+Server:
+  RunMode: debug
+  Host: 0.0.0.0
+  Port: 3000
+  ReadTimeout: 60
+  WriteTimeout: 60
+
+DBCfg:
+  Host: 43.198.184.4
+  Port: 35333
+  User: postgres
+  Password: "123456"
+  DBName: wallet
+  MaxIdleConns: 20
+  MaxOpenConns: 500
+  MigrationsPath: etc/migrations
+
+Logger:
+  Level: debug
+
+Jwt:
+  Secret: "0o908aoiu0j9Kiuyy7poiuKi-+jinlid"
+  Exp: 240 # hours

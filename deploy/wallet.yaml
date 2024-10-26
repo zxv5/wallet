@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: wallet-deployment
+  labels:
+    app: wallet
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wallet
+  template:
+    metadata:
+      labels:
+        app: wallet
+    spec:
+      # affinity:
+      #   podAntiAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       - labelSelector:
+      #           matchExpressions:
+      #             - key: app
+      #               operator: In
+      #               values:
+      #                 - svc-wallet
+      #         topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: wallet
+          image: 111111111111.dkr.ecr.ap-east-1.amazonaws.com/wallet:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_HOST_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+      imagePullSecrets:
+        - name: aws-regcred
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: svc-wallet
+  labels:
+    app: svc-wallet
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 3000
+      nodePort: 33000
+      protocol: TCP
+      name: http
+  selector:
+    app: wallet

@@ -1,0 +1,22 @@
+Server:
+  RunMode: release
+  Host: 0.0.0.0
+  Port: 3000
+  ReadTimeout: 60
+  WriteTimeout: 60
+
+DBCfg:
+  Host: 172.16.0.2
+  Port: 5432
+  User: postgres
+  Password: "123456"
+  DBName: wallet
+  MaxIdleConns: 20
+  MaxOpenConns: 500
+
+Logger:
+  Level: info
+
+Jwt:
+  Secret: "Hy76Jas0P0j9#3fgy785=42Opp=Ope87"
+  Exp: 8 # hours

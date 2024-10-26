@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "go",
+			"label": "go: build (debug)",
+			"command": "build",
+			"args": [
+				"-gcflags=all=-N -l",
+				"-o",
+				"${workspaceFolder}/__debug_bin"
+			],
+			"problemMatcher": [
+				"$go"
+			],
+			"group": "build",
+		}
+	]
+}

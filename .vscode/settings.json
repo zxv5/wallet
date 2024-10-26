@@ -1,0 +1,32 @@
+{
+    "go.formatTool": "goimports",
+    "go.useLanguageServer": true,
+    "go.alternateTools": {
+      "go-langserver": "gopls"
+    },
+    "go.gopath": "/Users/zhang/data/gopath",
+    "[go]": {
+      "editor.snippetSuggestions": "none",
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+      }
+    },
+    // "go.buildOnSave": "off",
+    // "go.lintOnSave": "off",
+    // "go.vetOnSave": "off",
+    // "go.buildFlags": [],
+    // "go.vetFlags": [],
+    // "go.useCodeSnippetsOnFunctionSuggest": false,
+    "go.lintTool": "golangci-lint",
+    // "go.lintFlags": ["--disable=all", "--enable=errcheck"],
+    "go.lintFlags": ["--fast"],
+    // "http.proxy": "http://127.0.0.1:1081",
+    // "http.proxyStrictSSL": false,
+    "editor.links": false,
+    // "go.toolsManagement.autoUpdate": true,
+    // "go.buildOnSave": "package", // 保存自动编译
+    "go.lintOnSave": "package", // 在保存代码时自动检查代码可以优化的地方，并给出建议
+    "go.vetOnSave": "package" //在保存代码时自动检查潜在的错误
+  }
+  
